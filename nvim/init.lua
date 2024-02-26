@@ -75,8 +75,8 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-   "sindrets/diffview.nvim",
-    "aserowy/tmux.nvim",
+  "sindrets/diffview.nvim",
+  "aserowy/tmux.nvim",
     config = function() return require("tmux").setup() end;
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -96,7 +96,23 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
+  { 'alexghergh/nvim-tmux-navigation', config = function()
 
+    local nvim_tmux_nav = require('nvim-tmux-navigation')
+
+    nvim_tmux_nav.setup {
+        disable_when_zoomed = true -- defaults to false
+    }
+
+    vim.keymap.set('n', "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft)
+    vim.keymap.set('n', "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
+    vim.keymap.set('n', "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
+    vim.keymap.set('n', "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
+    vim.keymap.set('n', "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
+    vim.keymap.set('n', "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
+
+  end
+  },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -572,7 +588,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
