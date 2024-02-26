@@ -75,7 +75,7 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  "sindrets/diffview.nvim",
+--  "sindrets/diffview.nvim",
   "aserowy/tmux.nvim",
     config = function() return require("tmux").setup() end;
   -- NOTE: This is where your plugins related to LSP can be installed.
@@ -95,6 +95,27 @@ require('lazy').setup({
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
+  },
+  -- Icons
+    { 'kyazdani42/nvim-web-devicons', lazy = true },
+  { "sindrets/diffview.nvim",
+--         use_icons = false
+--        keys = {
+--              { "<C-do>", "<CMD>DiffviewOpen<CR>", mode = { "n", "i", "v" } },
+--              { "<C-dc>", "<CMD>DiffviewClose<CR>", mode = { "n", "i", "v" } }
+--          },
+--          config = {
+--              keymaps = {
+--                  view = {
+--                      ["<C-g>"] = "<CMD>DiffviewClose<CR>",
+--                      ["c"] = "<CMD>DiffviewClose|Neogit commit<CR>",
+--                  },
+--                  file_panel = {
+--                      ["<C-g>"] = "<CMD>DiffviewClose<CR>",
+--                      ["c"] = "<CMD>DiffviewClose|Neogit commit<CR>",
+--                  },
+--              },
+--          }
   },
   { 'alexghergh/nvim-tmux-navigation', config = function()
 
@@ -466,6 +487,11 @@ vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by 
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>f', require('telescope.builtin').git_files, { desc = 'Fuzzy Git Files' })
+vim.keymap.set('n', "<leader>do", "<CMD>DiffviewOpen<CR>", {desc = "open diffview"} )
+vim.keymap.set('n', "<leader>dx", "<CMD>DiffviewClose<CR>", {desc = "close diffview"} )
+  --           { "<C-dc>", "<CMD>DiffviewClose<CR>", mode = { "n", "i", "v" } }
+
+-- vim.keymap.set('n', '<leader>b', require('diffview.builtin').diffview, { desc = 'Diff view' })
 vim.keymap.set('n', '<up>', '<nop>')
 vim.keymap.set('n', '<down>', '<nop>')
 vim.keymap.set('n', '<left>', '<nop>')
@@ -730,5 +756,7 @@ cmp.setup {
   },
 }
 
+require("diffview").use_icons = false
+-- use_icons=false
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
