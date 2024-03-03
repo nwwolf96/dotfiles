@@ -1,4 +1,6 @@
 Below is the text to append to the end of the themes.sh file   
+this gets added to the bottom of the theme.sh file generated from this repo https://github.com/lemnos/theme.sh
+
 carbonfox
 0:  #282828
 1:  #ee5396

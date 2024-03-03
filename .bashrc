@@ -71,15 +71,20 @@ fi
 
 eval "$(zoxide init bash)"
 
+export VISUAL=nvim
+export EDITOR="$VISUAL"
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
+set editing-mode vi
+set keymap vi
+set -o vi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias grp="grep -HRns"
-alias sbc="source ~/.bashrc"
+alias sbc="source ~/.bashrc && tmux source ~/.tmux.conf"
 alias tn="tmux -s /(pwd /| sed /'s//./*/\///////g/')"
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -134,7 +139,9 @@ alias br5="sudo brightnessctl set 190"
 alias br6="sudo brightnessctl set 250"
 alias sbrc="source ~/.bashrc"
 
-alias vi="hx"
+# alias vi="hx"
+alias vi="nvim"
+alias cls="clear && tmux clear-history"
 alias fix_screen="xrandr --auto"
 alias align_monitors="arandr"
 alias network_ip_fixer="nmtui"
