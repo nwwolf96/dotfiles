@@ -1,43 +1,3 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
-
-Kickstart Guide:
-
-I have left several `:help X` comments throughout the init.lua
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -67,15 +27,12 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
-
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
---  "sindrets/diffview.nvim",
   "aserowy/tmux.nvim",
     config = function() return require("tmux").setup() end;
   -- NOTE: This is where your plugins related to LSP can be installed.
@@ -98,25 +55,6 @@ require('lazy').setup({
   },
   -- Icons
     { 'kyazdani42/nvim-web-devicons', lazy = true },
-  { "sindrets/diffview.nvim",
---         use_icons = false
---        keys = {
---              { "<C-do>", "<CMD>DiffviewOpen<CR>", mode = { "n", "i", "v" } },
---              { "<C-dc>", "<CMD>DiffviewClose<CR>", mode = { "n", "i", "v" } }
---          },
---          config = {
---              keymaps = {
---                  view = {
---                      ["<C-g>"] = "<CMD>DiffviewClose<CR>",
---                      ["c"] = "<CMD>DiffviewClose|Neogit commit<CR>",
---                  },
---                  file_panel = {
---                      ["<C-g>"] = "<CMD>DiffviewClose<CR>",
---                      ["c"] = "<CMD>DiffviewClose|Neogit commit<CR>",
---                  },
---              },
---          }
-  },
   { 'alexghergh/nvim-tmux-navigation', config = function()
 
     local nvim_tmux_nav = require('nvim-tmux-navigation')
@@ -479,11 +417,6 @@ vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by 
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>f', require('telescope.builtin').git_files, { desc = 'Fuzzy Git Files' })
-vim.keymap.set('n', "<leader>do", "<CMD>DiffviewOpen<CR>", {desc = "open diffview"} )
-vim.keymap.set('n', "<leader>dx", "<CMD>DiffviewClose<CR>", {desc = "close diffview"} )
-  --           { "<C-dc>", "<CMD>DiffviewClose<CR>", mode = { "n", "i", "v" } }
-
--- vim.keymap.set('n', '<leader>b', require('diffview.builtin').diffview, { desc = 'Diff view' })
 vim.keymap.set('n', '<up>', '<nop>')
 vim.keymap.set('n', '<down>', '<nop>')
 vim.keymap.set('n', '<left>', '<nop>')
@@ -622,31 +555,6 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- require('which-key').register({
---   { "<leader>c", group = "[C]ode" },
---   { "<leader>c_", hidden = true },
---   { "<leader>d", group = "[D]ocument" },
---   { "<leader>d_", hidden = true },
---   { "<leader>g", group = "[G]it" },
---   { "<leader>g_", hidden = true },
---   { "<leader>h", group = "Git [H]unk" },
---   { "<leader>h_", hidden = true },
---   { "<leader>r", group = "[R]ename" },
---   { "<leader>r_", hidden = true },
---   { "<leader>s", group = "[S]earch" },
---   { "<leader>s_", hidden = true },
---   { "<leader>t", group = "[T]oggle" },
---   { "<leader>t_", hidden = true },
---   { "<leader>w", group = "[W]orkspace" },
---   { "<leader>w_", hidden = true },
--- })
--- -- register which-key VISUAL mode
--- -- required for visual <leader>hs (hunk stage) to work
--- require('which-key').register({
---   ['<leader>'] = { name = 'VISUAL <leader>' },
---   ['<leader>h'] = { 'Git [H]unk' },
--- }, { mode = 'v' })
-
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason').setup()
@@ -755,9 +663,5 @@ cmp.setup {
   },
 }
 
-require("diffview").setup {
-  use_icons = false
-}
--- use_icons=false
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
